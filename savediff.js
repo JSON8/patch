@@ -42,22 +42,36 @@ var diff = function(a, b, pre) {
   else if (bt === 'array') {
     var ai = 0
     for (var i = 0, l = b.length; i < l; i++) {
-      // if (equal(b[i], a[ai])) {
-      //   ai++
-      //   continue
-      // }
+      if (equal(b[i], a[ai])) {
+        ai++
+        continue
+      }
 
+      console.log(i, b[i])
       // checks next item on B is same as current on A
       if (i < l && equal(b[i + 1], a[ai])) {
+        console.log('YES',  b[i])
         var pref = prefix.concat([i.toString()])
         patches.push({"op": "add", "path": serialize(pref), "value": b[i]})
+        ai++
+        // i++
+        continue
+      }
+
+      // checks current item on B is same as previous on A
+      if (i < l && equal(b[i + 1], a[ai])) {
+        console.log(b)
+        var pref = prefix.concat([i.toString()])
+        patches.push({"op": "add", "path": serialize(pref), "value": b[i]})
+        // i++
         continue
       }
 
       // checks current item on B is same as next on A
-      if (i !== 0 && equal(b[i], a[ai + 1])) {
+      if (equal(b[i], a[i + 1])) {
         var pref = prefix.concat([i.toString()])
         patches.push({"op": "remove", "path": serialize(pref)})
+        // i++ // FIXME?
         continue
       }
 
@@ -69,7 +83,7 @@ var diff = function(a, b, pre) {
       }
 
       var pref = prefix.concat([i.toString()])
-      patches = patches.concat(diff(a[ai], b[i], pref))
+      patches = patches.concat(diff(a[i], b[i], pref))
 
       ai++
     }
