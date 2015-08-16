@@ -35,7 +35,7 @@ const data = [
   // same array
   [["foo"], ["foo"]],
   // add item end
-  [["foo"], ["foo", "bar"], 'add', '/-', 'bar'],
+  [["foo"], ["foo", "bar"], 'add', '/-', 'bar'], // -----
   [["foo", "bara"], ["foo", "bara", "bar"], 'add', '/-', 'bar'],
   // replace item
   [["foo"], ["bar"], 'replace', '/0', 'bar'],
@@ -44,25 +44,26 @@ const data = [
   // replace last item
   [["foo", "bar"], ["foo", "foo"], 'replace', '/1', 'foo'],
   // add item start
-  [["bar"], ["foo", "bar"], 'add', '/0', 'foo'], // here
+  [["bar"], ["foo", "bar"], 'add', '/0', 'foo'],
   // add item start + 1
-  [["foo", "bar"], ["hi", "foo", "bar"], 'add', '/0', 'hi'], // here
+  [["foo", "bar"], ["hi", "foo", "bar"], 'add', '/0', 'hi'],
+
   // add item in between
-  [["foo", "bar"], ["foo", "lol", "bar"], "add", '/1', 'lol'], // here
+  [["foo", "bar"], ["foo", "lol", "bar"], "add", '/1', 'lol'],
+
   // remove item in between
-  [["foo", "foobar", "bar"], ["foo", "bar"], "remove", '/1'], // here
+  [["foo", "foobar", "bar"], ["foo", "bar"], "remove", '/1'],
   // replace item in between
   [["foo", "", "bar"], ["foo", "foobar", "bar"], "replace", '/1', 'foobar'],
-  // replace 2 first items
-  [["foo", "bar", "bar"], ["bar", "foo", "bar"], "replace", '/1', 'foobar'],
 ]
 
 describe('diff', () => {
 
-  data.forEach(function(d) {
-
+  data.forEach(function(d, idx) {
+    // if (idx !== 16)
+      // return
     const patch = diff(d[0], d[1])
-    it('returns a correct patch', () => { // FIXME better test message
+    it('returns a correct patch ' + idx, () => {
       if (!d[2])
         return assert.deepEqual(patch, [])
 
