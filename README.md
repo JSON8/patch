@@ -87,7 +87,7 @@ Alias for [apply](#apply) method.
 
 If the [patch](#patch) or [apply](#apply) method is called with a third argument ```{reversible: true}``` it will return an additional value in the form of a ```revert``` property.
 
-The revert object can be used to revert a patch on a document.
+The revert property is a JSON Patch that can be used to revert a patch on a document.
 
 ```javascript
 // apply the patch with the reversible option
@@ -95,7 +95,7 @@ var patchResult = ooPatch.apply(doc, patch, {reversible: true});
 doc = patchResult.doc
 
 // revert the patch
-doc = ooPatch.revert(doc, patchResult.revert).doc;
+doc = ooPatch.apply(doc, patchResult.revert).doc;
 // doc is strictly identical to the original
 ```
 
