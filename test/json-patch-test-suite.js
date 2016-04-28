@@ -3,7 +3,6 @@
 import assert from 'assert'
 import {clone} from 'json8'
 import apply from '../lib/apply'
-import revert from '../lib/revert'
 import pack from '../lib/pack'
 import unpack from '../lib/unpack'
 import valid from '../lib/valid'
@@ -49,7 +48,7 @@ describe('json-patch-test-suite', () => {
           const t = clone(test)
           const original = t.doc
           const r = apply(t.doc, t.patch, {reversible: true})
-          assert.deepEqual(revert(r.doc, r.revert).doc, original)
+          assert.deepEqual(apply(r.doc, r.revert).doc, original)
         })
       }
       else {
