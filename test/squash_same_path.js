@@ -5,7 +5,7 @@ import squash from '../lib/squash'
 
 /* eslint comma-dangle: 0 */
 
-function equal(obj1, obj2) {
+function test(obj1, obj2) {
   return assert.deepEqual(squash(obj1), obj2)
 }
 
@@ -13,7 +13,7 @@ function equal(obj1, obj2) {
  * add
  */
 // add - add
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -23,7 +23,7 @@ equal(
   ]
 )
 // add - remove
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "remove"}
@@ -31,7 +31,7 @@ equal(
   []
 )
 // add - replace
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -41,7 +41,7 @@ equal(
   ]
 )
 // add - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -51,7 +51,7 @@ equal(
   ]
 )
 // // add - move from // FIXME this could resolve to [{"op": "add", "path": "/bar", "value": "lulz"}]
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -62,7 +62,7 @@ equal(
   ]
 )
 // add - copy to
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -72,7 +72,7 @@ equal(
   ]
 )
 // add - copy from
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -83,7 +83,7 @@ equal(
   ]
 )
 // add - test
-equal(
+test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -98,7 +98,7 @@ equal(
  * remove
  */
 // remove - add
-equal(
+test(
   [
     {"path": "/foo", "op": "remove"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -108,7 +108,7 @@ equal(
   ]
 )
 // // remove - remove // FIXME invalid patch ...
-// equal(
+// test(
 //   [
 //     {"path": "/foo", "op": "remove"},
 //     {"path": "/foo", "op": "remove"}
@@ -119,7 +119,7 @@ equal(
 //   ]
 // )
 // // remove - replace // FIXME invalid patch ...
-// equal(
+// test(
 //   [
 //     {"path": "/foo", "op": "remove"},
 //     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -130,7 +130,7 @@ equal(
 //   ]
 // )
 // remove - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "remove"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -140,7 +140,7 @@ equal(
   ]
 )
 // // remove - move from // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/foo", "op": "remove"},
 //     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -150,7 +150,7 @@ equal(
 //   ]
 // )
 // remove - copy to
-equal(
+test(
   [
     {"path": "/foo", "op": "remove"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -160,7 +160,7 @@ equal(
   ]
 )
 // // remove - copy from // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/foo", "op": "remove"},
 //     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -171,7 +171,7 @@ equal(
 //   ]
 // )
 // remove - test // FIXME invalid patch
-equal(
+test(
   [
     {"path": "/foo", "op": "remove"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -186,7 +186,7 @@ equal(
  * replace
  */
 // replace - add
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -196,7 +196,7 @@ equal(
   ]
 )
 // replace - remove
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "remove"}
@@ -204,7 +204,7 @@ equal(
   []
 )
 // replace - replace
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -214,7 +214,7 @@ equal(
   ]
 )
 // replace - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -224,7 +224,7 @@ equal(
   ]
 )
 // replace - move from
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -235,7 +235,7 @@ equal(
   ]
 )
 // replace - copy to
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -245,7 +245,7 @@ equal(
   ]
 )
 // replace - copy from
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -256,7 +256,7 @@ equal(
   ]
 )
 // replace - test
-equal(
+test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -271,7 +271,7 @@ equal(
  * move to
  */
 // move to - add
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -281,7 +281,7 @@ equal(
   ]
 )
 // move to - remove
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "remove"}
@@ -289,7 +289,7 @@ equal(
   []
 )
 // move to - replace
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -299,7 +299,7 @@ equal(
   ]
 )
 // move to - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -309,7 +309,7 @@ equal(
   ]
 )
 // move to - move from // FIXME this could resolve to []
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -320,7 +320,7 @@ equal(
   ]
 )
 // move to - copy to // FIXME invalid patch
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -330,7 +330,7 @@ equal(
   ]
 )
 // move to - copy from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}]
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -341,7 +341,7 @@ equal(
   ]
 )
 // move to - test
-equal(
+test(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -356,7 +356,7 @@ equal(
  * move from
  */
 // move from - add
-equal(
+test(
   [
     {"path": "/bar", "op": "move", "from": "/foo"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -367,7 +367,7 @@ equal(
   ]
 )
 // // move from - remove // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/foo", "op": "remove"}
@@ -375,7 +375,7 @@ equal(
 //   []
 // )
 // // move from - replace // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -385,7 +385,7 @@ equal(
 //   ]
 // )
 // // move from - move to // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -395,7 +395,7 @@ equal(
 //   ]
 // )
 // // move from - move from // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -406,7 +406,7 @@ equal(
 //   ]
 // )
 // move from - copy to // FIXME this could resolve to [{"op": "copy", "path": "/bar", "from": "/foo"}]
-equal(
+test(
   [
     {"path": "/bar", "op": "move", "from": "/foo"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -417,7 +417,7 @@ equal(
   ]
 )
 // // move from - copy from // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -428,7 +428,7 @@ equal(
 //   ]
 // )
 // // move from - test // FIXME invalid patch
-// equal(
+// test(
 //   [
 //     {"path": "/bar", "op": "move", "from": "/foo"},
 //     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -444,7 +444,7 @@ equal(
  * copy to
  */
 // copy to - add
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -454,7 +454,7 @@ equal(
   ]
 )
 // copy to - remove
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "remove"}
@@ -462,7 +462,7 @@ equal(
   []
 )
 // copy to - replace
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -472,7 +472,7 @@ equal(
   ]
 )
 // copy to - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -482,7 +482,7 @@ equal(
   ]
 )
 // copy to - move from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}]
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -493,7 +493,7 @@ equal(
   ]
 )
 // copy to - copy to
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -503,7 +503,7 @@ equal(
   ]
 )
 // copy to - copy from // FIXME this could resolve to []
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -514,7 +514,7 @@ equal(
   ]
 )
 // copy to - test
-equal(
+test(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -529,7 +529,7 @@ equal(
  * copy from
  */
 // copy from - add
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -540,7 +540,7 @@ equal(
   ]
 )
 // copy from - remove
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "remove"}
@@ -551,7 +551,7 @@ equal(
   ]
 )
 // copy from - replace
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -562,7 +562,7 @@ equal(
   ]
 )
 // copy from - move to // FIXME this could resolve to []
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -573,7 +573,7 @@ equal(
   ]
 )
 // copy from - move from
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -583,7 +583,7 @@ equal(
   ]
 )
 // copy from - copy to // FIXME this chould resolve to [{"path": "/bar", "op": "copy", "from": "/foo"}]
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -594,7 +594,7 @@ equal(
   ]
 )
 // copy from - copy from
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -604,7 +604,7 @@ equal(
   ]
 )
 // copy from - test
-equal(
+test(
   [
     {"path": "/bar", "op": "copy", "from": "/foo"},
     {"path": "/foo", "op": "test", "value": "lulz"}
@@ -619,7 +619,7 @@ equal(
  * test
  */
 // test - add
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "add", "value": "bar"}
@@ -630,7 +630,7 @@ equal(
   ]
 )
 // test - remove
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "remove"}
@@ -641,7 +641,7 @@ equal(
   ]
 )
 // test - replace
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "replace", "value": "bar"}
@@ -652,7 +652,7 @@ equal(
   ]
 )
 // test - move to
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "move", "from": "/bar"}
@@ -663,7 +663,7 @@ equal(
   ]
 )
 // test - move from
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/bar", "op": "move", "from": "/foo"}
@@ -674,7 +674,7 @@ equal(
   ]
 )
 // test - copy to
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "copy", "from": "/bar"}
@@ -685,7 +685,7 @@ equal(
   ]
 )
 // test - copy from
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
@@ -696,7 +696,7 @@ equal(
   ]
 )
 // test - test
-equal(
+test(
   [
     {"path": "/foo", "op": "test", "value": "lulz"},
     {"path": "/foo", "op": "test", "value": "lulz"}
