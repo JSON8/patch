@@ -308,7 +308,7 @@ equal(
     {"path": "/foo", "op": "move", "from": "/bar"}
   ]
 )
-// move to - move from // FIXME this could resolve to [] but that's a pretty edge case
+// move to - move from // FIXME this could resolve to []
 equal(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
@@ -329,7 +329,7 @@ equal(
     {"path": "/foo", "op": "copy", "from": "/bar"}
   ]
 )
-// move to - copy from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}] but that's a pretty edge case
+// move to - copy from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}]
 equal(
   [
     {"path": "/foo", "op": "move", "from": "/bar"},
@@ -481,7 +481,7 @@ equal(
     {"path": "/foo", "op": "move", "from": "/bar"}
   ]
 )
-// copy to - move from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}] but that's a pretty edge case
+// copy to - move from // FIXME this could resolve to [{"op": "copy", "path": "/bar" from: "/foo"}]
 equal(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
@@ -502,7 +502,7 @@ equal(
     {"path": "/foo", "op": "copy", "from": "/bar"}
   ]
 )
-// copy to - copy from // FIXME this could resolve to [] but that's a pretty edge case
+// copy to - copy from // FIXME this could resolve to []
 equal(
   [
     {"path": "/foo", "op": "copy", "from": "/bar"},
