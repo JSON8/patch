@@ -2,11 +2,23 @@
 
 import assert from 'assert'
 import squash from '../lib/squash'
+import apply from '../lib/apply'
+import {clone} from 'json8'
 
 /* eslint comma-dangle: 0 */
 
-function test(obj1, obj2) {
-  return assert.deepEqual(squash(obj1), obj2)
+function test(patch, squashed, doc, expected) {
+  assert.deepEqual(squash(patch), squashed)
+
+
+  if (doc) {
+    assert.deepEqual(apply(clone(doc), patch).doc, apply(clone(doc), squashed).doc)
+  }
+
+  if (expected) {
+    assert.deepEqual(apply(clone(doc), patch).doc, expected)
+    assert.deepEqual(apply(clone(doc), squashed).doc, expected)
+  }
 }
 
 /*
@@ -20,7 +32,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "add", "value": "bar"}
-  ]
+  ],
+  {},
+  {"foo": "bar"}
 )
 // add - remove
 test(
@@ -28,7 +42,9 @@ test(
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "remove"}
   ],
-  []
+  [],
+  {},
+  {}
 )
 // add - replace
 test(
@@ -38,7 +54,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "add", "value": "bar"}
-  ]
+  ],
+  {},
+  {"foo": "bar"}
 )
 // add - move to
 test(
@@ -48,7 +66,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "move", "from": "/bar"}
-  ]
+  ],
+  {"bar": "lulz"},
+  {"foo": "lulz"}
 )
 // // add - move from // FIXME this could resolve to [{"op": "add", "path": "/bar", "value": "lulz"}]
 test(
@@ -59,7 +79,9 @@ test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/bar", "op": "move", "from": "/foo"}
-  ]
+  ],
+  {},
+  {"bar": "lulz"}
 )
 // add - copy to
 test(
@@ -69,7 +91,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "copy", "from": "/bar"}
-  ]
+  ],
+  {"bar": "lulz"},
+  {"bar": "lulz", "foo": "lulz"}
 )
 // add - copy from
 test(
@@ -80,7 +104,9 @@ test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/bar", "op": "copy", "from": "/foo"}
-  ]
+  ],
+  {},
+  {"foo": "lulz", "bar": "lulz"}
 )
 // add - test
 test(
@@ -91,7 +117,9 @@ test(
   [
     {"path": "/foo", "op": "add", "value": "lulz"},
     {"path": "/foo", "op": "test", "value": "lulz"}
-  ]
+  ],
+  {},
+  {"foo": "lulz"}
 )
 
 /*
@@ -105,7 +133,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "add", "value": "bar"}
-  ]
+  ],
+  {"foo": "lulz"},
+  {"foo": "bar"}
 )
 // // remove - remove // FIXME invalid patch ...
 // test(
@@ -137,7 +167,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "move", "from": "/bar"}
-  ]
+  ],
+  {"foo": "cat", "bar": "dog"},
+  {"foo": "dog"}
 )
 // // remove - move from // FIXME invalid patch
 // test(
@@ -157,7 +189,9 @@ test(
   ],
   [
     {"path": "/foo", "op": "copy", "from": "/bar"}
-  ]
+  ],
+  {"foo": "turtle", "bar": "dog"},
+  {"foo": "dog", "bar": "dog"}
 )
 // // remove - copy from // FIXME invalid patch
 // test(
@@ -193,15 +227,21 @@ test(
   ],
   [
     {"path": "/foo", "op": "add", "value": "bar"}
-  ]
+  ],
+  {"foo": "cat"},
+  {"foo": "bar"}
 )
-// replace - remove
+// replace - remove // FIXAAAAAAAAAAA
 test(
   [
     {"path": "/foo", "op": "replace", "value": "lulz"},
     {"path": "/foo", "op": "remove"}
   ],
-  []
+  [
+    {"path": "/foo", "op": "remove"}
+  ],
+  {"foo": "cat"},
+  {}
 )
 // replace - replace
 test(
