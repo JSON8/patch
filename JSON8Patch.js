@@ -12,7 +12,7 @@ module.exports.apply = apply
 
 // Reverting
 module.exports.revert = require('./lib/revert')
-module.exports.buildPatchFromRevert = require('./lib/buildPatchFromRevert')
+module.exports.buildRevertPatch = require('./lib/buildRevertPatch')
 
 // Operations
 module.exports.add = require('./lib/add')
@@ -33,7 +33,7 @@ module.exports.unpack = require('./lib/unpack')
 // Utilities
 module.exports.concat = require('./lib/concat')
 
-},{"./lib/add":2,"./lib/apply":3,"./lib/buildPatchFromRevert":4,"./lib/concat":5,"./lib/copy":6,"./lib/diff":7,"./lib/get":8,"./lib/has":9,"./lib/move":10,"./lib/pack":11,"./lib/remove":12,"./lib/replace":13,"./lib/revert":14,"./lib/test":15,"./lib/unpack":16,"./lib/valid":17}],2:[function(require,module,exports){
+},{"./lib/add":2,"./lib/apply":3,"./lib/buildRevertPatch":4,"./lib/concat":5,"./lib/copy":6,"./lib/diff":7,"./lib/get":8,"./lib/has":9,"./lib/move":10,"./lib/pack":11,"./lib/remove":12,"./lib/replace":13,"./lib/revert":14,"./lib/test":15,"./lib/unpack":16,"./lib/valid":17}],2:[function(require,module,exports){
 'use strict'
 
 var ooPointer = require('json8-pointer')
@@ -90,7 +90,7 @@ module.exports = function add(doc, path, value) {
 'use strict'
 
 var parse = require('json8-pointer').parse
-var buildPatchFromRevert = require('./buildPatchFromRevert')
+var buildRevertPatch = require('./buildRevertPatch')
 
 var operations = Object.create(null)
 operations.add = require('./add')
@@ -104,7 +104,7 @@ operations.test = require('./test')
  * @typedef PatchResult
  * @type Object
  * @property {Any}   doc     - The patched document
- * @property {Array} revert  - An array to be used with revert or buildPatchFromRevert methods
+ * @property {Array} revert  - An array to be used with revert or buildRevertPatch methods
  */
 
 /**
@@ -161,7 +161,7 @@ function apply(doc, patch, options) {
     }
     catch (err) { // restore document
       // does not use ./revert.js because it is a circular dependency
-      var revertPatch = buildPatchFromRevert(done)
+      var revertPatch = buildRevertPatch(done)
       apply(doc, revertPatch)
       throw err
     }
@@ -180,7 +180,7 @@ function apply(doc, patch, options) {
 
 module.exports = apply
 
-},{"./add":2,"./buildPatchFromRevert":4,"./copy":6,"./move":10,"./remove":12,"./replace":13,"./test":15,"json8-pointer":18}],4:[function(require,module,exports){
+},{"./add":2,"./buildRevertPatch":4,"./copy":6,"./move":10,"./remove":12,"./replace":13,"./test":15,"json8-pointer":18}],4:[function(require,module,exports){
 'use strict'
 
 var JSON8Pointer = require('json8-pointer')
@@ -222,7 +222,7 @@ function reverse(patch, previous, idx) {
  * @param  {Array} revert   - revert value from the apply or patch method with {reversible: true}
  * @return {Array} patches  - JSON Patch
  */
-module.exports = function buildPatchFromRevert(revert) {
+module.exports = function buildRevertPatch(revert) {
   var patch = []
 
   for (var i = 0, len = revert.length; i < len; i++) {
@@ -551,7 +551,7 @@ module.exports = function replace(doc, path, value) {
 },{"json8-pointer":18}],14:[function(require,module,exports){
 'use strict'
 
-var buildPatchFromRevert = require('./buildPatchFromRevert')
+var buildRevertPatch = require('./buildRevertPatch')
 var apply = require('./apply')
 
 /**
@@ -567,11 +567,11 @@ var apply = require('./apply')
  * @return {PatchResult}
  */
 module.exports = function revert(doc, items) {
-  var patch = buildPatchFromRevert(items)
+  var patch = buildRevertPatch(items)
   return apply(doc, patch)
 }
 
-},{"./apply":3,"./buildPatchFromRevert":4}],15:[function(require,module,exports){
+},{"./apply":3,"./buildRevertPatch":4}],15:[function(require,module,exports){
 'use strict'
 
 var get = require('./get')
