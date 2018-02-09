@@ -100,6 +100,16 @@ Alias for [apply](#apply) method.
 
 [↑](#json8-patch)
 
+## applyOperation
+
+Same as [apply](#apply) but for a single JSON Patch operation.
+
+```javascript
+doc = ooPatch.applyOperation(doc, {"op": "add", "path": "/foo", "value": "bar"}).doc;
+```
+
+[↑](#json8-patch)
+
 ## revert
 
 If the [patch](#patch) or [apply](#apply) method is called with a third argument ```{reversible: true}``` it will return an additional value in the form of a ```revert``` property.

@@ -8,6 +8,7 @@ module.exports.valid = require('./lib/valid')
 // Patching
 module.exports.patch = apply
 module.exports.apply = apply
+module.exports.applyOperation = require('./lib/applyOperation')
 
 // Reverting
 module.exports.revert = require('./lib/revert')
