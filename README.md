@@ -152,8 +152,7 @@ Because `buildRevertPatch + apply` offers more flexibility over `revert` it is p
 * use [pack/unpack](#patch-size) with the result of `buildRevertPatch` making it ideal for storage or transport
 * reverse a revert (and so on...) with `{reversible: true}`
 * [diff](#diff) between reverts
-* merge multiple reverts into one
-* rebase reverts
+* concat, squash, rebase multiple reverts
 
 [↑](#json8-patch)
 

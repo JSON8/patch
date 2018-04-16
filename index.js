@@ -31,3 +31,4 @@ module.exports.unpack = require('./lib/unpack')
 
 // Utilities
 module.exports.concat = require('./lib/concat')
+module.exports.squash = require('./lib/squash')
